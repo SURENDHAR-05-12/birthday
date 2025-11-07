@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-gradient-to-br from-fuchsia-700 via-indigo-700 to-sky-700 text-white;
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Section padding adjustments */
+@media (max-width: 640px) {
+  section {
+    @apply py-10 px-4;
+  }
+  h1 {
+    @apply text-3xl;
+  }
+  h2 {
+    @apply text-2xl;
+  }
+}
+
+.card-shadow {
+  @apply shadow-xl rounded-2xl border border-white/10;
+}
