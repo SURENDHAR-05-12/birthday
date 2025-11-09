@@ -9,24 +9,24 @@ const slides = [
   },
   {
     src: "./videos/clip2.mp4",
-    title: "SWETHA",
+    title: "DHARANI",
     desc: "",
   },
   {
     src: "./videos/clip3.mp4",
-    title: "",
-    desc: "",
-  },{
-    src: "./videos/clip4.mp4",
     title: "NAVEENA",
     desc: "",
   },{
+    src: "./videos/clip4.mp4",
+    title: "VIMALA",
+    desc: "",
+  },{
     src: "./videos/clip5.mp4",
-    title: "CLARA",
+    title: "SWETHA",
     desc: "",
   },{
     src: "./videos/clip6.mp4",
-    title: "",
+    title: "CLARA",
     desc: "",
   },{
     src: "./videos/clip7.mp4",
@@ -142,7 +142,6 @@ const SurpriseVideoSlider_Fullscreen = ({ open, onClose }) => {
               onLoadedMetadata={handleMetadata}
               className="w-full h-full object-contain"
               autoPlay={playing}
-              muted
               loop
               playsInline
             />
