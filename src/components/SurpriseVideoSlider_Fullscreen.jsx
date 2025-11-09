@@ -3,19 +3,55 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const slides = [
   {
-    src: "/videos/clip1.mp4",
-    title: "Finland",
-    desc: "Serene lakes and calm reflections.",
+    src: "./videos/clip1.mp4",
+    title: "HEMA",
+    desc: "",
   },
   {
-    src: "/videos/clip2.mp4",
-    title: "Autumn Magic",
-    desc: "Golden leaves and endless joy.",
+    src: "./videos/clip2.mp4",
+    title: "SWETHA",
+    desc: "",
   },
   {
-    src: "/videos/clip3.mp4",
-    title: "Mountain View",
-    desc: "Peaceful horizons and sweet smiles.",
+    src: "./videos/clip3.mp4",
+    title: "",
+    desc: "",
+  },{
+    src: "./videos/clip4.mp4",
+    title: "NAVEENA",
+    desc: "",
+  },{
+    src: "./videos/clip5.mp4",
+    title: "CLARA",
+    desc: "",
+  },{
+    src: "./videos/clip6.mp4",
+    title: "",
+    desc: "",
+  },{
+    src: "./videos/clip7.mp4",
+    title: "",
+    desc: "",
+  },{
+    src: "./videos/clip8.mp4",
+    title: "",
+    desc: "",
+  },{
+    src: "./videos/clip9.mp4",
+    title: "",
+    desc: "",
+  },{
+    src: "./videos/clip10.mp4",
+    title: "",
+    desc: "",
+  },{
+    src: "./videos/clip11.mp4",
+    title: "",
+    desc: "",
+  },{
+    src: "./videos/clip12.mp4",
+    title: "",
+    desc: "",
   },
 ];
 
