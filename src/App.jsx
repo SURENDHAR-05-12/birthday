@@ -13,12 +13,12 @@ import Balloons from "./components/Balloons";
 import MusicPlayer from "./components/MusicPlayer";
 import SurpriseVideoSlider_Fullscreen from "./components/SurpriseVideoSlider_Fullscreen";
 
-const SITE_TITLE = "Happy Birthday, Pappa! 🎂";
-const NAME_NICK = "Pappa";
-const BIRTHDAY_DATE = "06 Nov 2025";
+const SITE_TITLE = "Happy Birthday, KABI! 🎂";
+const NAME_NICK = "KABINI";
+const BIRTHDAY_DATE = "19 Nov 2025";
 
 const LETTER_TEXT = `
-Dear Pappa,
+ Dear KABI,
 
 From your first tiny smile to the way you light up every room today — you are our sunshine.
 Every memory with you is a little miracle. On your special day, I want you to know how
