@@ -2,18 +2,18 @@ import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const slides = [
-  { src: "./videos/clip1.mp4", title: "HEMA", desc: "" },
-  { src: "./videos/clip2.mp4", title: "DHARANI", desc: "" },
-  { src: "./videos/clip3.mp4", title: "NAVEENA", desc: "" },
-  { src: "./videos/clip4.mp4", title: "VIMALA", desc: "" },
-  { src: "./videos/clip5.mp4", title: "SWETHA", desc: "" },
-  { src: "./videos/clip6.mp4", title: "CLARA", desc: "" },
-  { src: "./videos/clip7.mp4", title: "", desc: "" },
-  { src: "./videos/clip8.mp4", title: "", desc: "" },
-  { src: "./videos/clip9.mp4", title: "", desc: "" },
-  { src: "./videos/clip10.mp4", title: "", desc: "" },
-  { src: "./videos/clip11.mp4", title: "", desc: "" },
-  { src: "./videos/clip12.mp4", title: "", desc: "" },
+  {src: "./videos/clip1.mp4",title: "HEMA",desc: "",},
+  {src: "./videos/clip2.mp4",title: "DHARANI",desc: "",},
+  {src: "./videos/clip3.mp4",title: "NAVEENA",desc: "",},
+  {src: "./videos/clip4.mp4",title: "VIMALA",desc: "",},
+  {src: "./videos/clip5.mp4",title: "SWETHA",desc: "",},
+  {src: "./videos/clip6.mp4",title: "CLARA",desc: "",},
+  {src: "./videos/clip7.mp4",title: "",desc: "",},
+  {src: "./videos/clip8.mp4",title: "",desc: "",},
+  {src: "./videos/clip9.mp4",title: "",desc: "",},
+  {src: "./videos/clip10.mp4",title: "",desc: "",},
+  { src: "./videos/clip11.mp4",title: "",desc: "",},
+  {src: "./videos/clip12.mp4",title: "",desc: "",},
 ];
 
 const SurpriseVideoSlider_Fullscreen = ({ open, onClose }) => {
@@ -22,7 +22,7 @@ const SurpriseVideoSlider_Fullscreen = ({ open, onClose }) => {
   const [aspectRatio, setAspectRatio] = useState(16 / 9);
   const videoRef = useRef(null);
 
-  // 🔄 Next / Prev
+  // 🔄 Handle next / prev video
   const next = () => {
     setIndex((i) => (i + 1) % slides.length);
     setPlaying(true);
@@ -46,25 +46,27 @@ const SurpriseVideoSlider_Fullscreen = ({ open, onClose }) => {
     }
   };
 
-  // 📐 Detect video ratio
+  // 🧠 Detect actual video resolution smoothly
   const handleMetadata = () => {
-    const v = videoRef.current;
-    if (v?.videoWidth && v?.videoHeight) {
-      setAspectRatio(v.videoWidth / v.videoHeight || 16 / 9);
+    const video = videoRef.current;
+    if (video?.videoWidth && video?.videoHeight) {
+      const ratio = video.videoWidth / video.videoHeight;
+      setAspectRatio(ratio || 16 / 9);
     }
   };
 
-  // 🎬 Ensure autoplay works on mobile
+  // 🎬 Autoplay safely without glitch
   useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    v.load();
-    v.muted = true; // ensures autoplay works on mobile
-    const playPromise = playing ? v.play() : v.pause();
-    if (playPromise !== undefined) playPromise.catch(() => {});
+    const video = videoRef.current;
+    if (!video) return;
+    video.load();
+    const playPromise = playing ? video.play() : video.pause();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {}); // avoid error
+    }
   }, [index]);
 
-  // ⚙️ Dynamic aspect ratio sizing
+  // ⚙️ Decide width dynamically
   const aspectStyle = {
     aspectRatio: aspectRatio,
     width: aspectRatio >= 1 ? "90vw" : "auto",
@@ -82,7 +84,7 @@ const SurpriseVideoSlider_Fullscreen = ({ open, onClose }) => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4 }}
         >
-          {/* Close Button */}
+          {/* ✖ Always visible close button */}
           <button
             onClick={onClose}
             className="absolute top-5 right-5 text-white text-3xl font-bold hover:text-pink-300 active:scale-95 transition z-[1000]"
@@ -95,37 +97,23 @@ const SurpriseVideoSlider_Fullscreen = ({ open, onClose }) => {
             className="relative overflow-hidden shadow-2xl rounded-3xl bg-black/40 flex items-center justify-center"
             style={aspectStyle}
           >
-            <AnimatePresence mode="wait">
-              <motion.video
-                key={slides[index].src}
-                ref={videoRef}
-                src={slides[index].src}
-                onLoadedMetadata={handleMetadata}
-                className="w-full h-full object-contain"
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="auto"
-                onCanPlay={() => {
-                  const v = videoRef.current;
-                  if (v && v.paused) v.play().catch(() => {});
-                }}
-                initial={{ opacity: 0, scale: 1.02 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.8, ease: "easeInOut" }}
-              />
-            </AnimatePresence>
+            <video
+              ref={videoRef}
+              src={slides[index].src}
+              onLoadedMetadata={handleMetadata}
+              className="w-full h-full object-contain"
+              autoPlay={playing}
+              loop
+              playsInline
+            />
 
-            {/* Overlay Gradient */}
+            {/* Overlay for readability */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none" />
-
-            {/* Title */}
             <div className="absolute bottom-6 left-6 sm:left-10 text-white drop-shadow-lg">
-              <h3 className="text-xl sm:text-3xl font-extrabold">
-                {slides[index].title}
-              </h3>
+              <h3 className="text-xl sm:text-3xl font-extrabold">{slides[index].title}</h3>
+              <p className="text-sm sm:text-base text-white/90 mt-1 max-w-md">
+                {slides[index].desc}
+              </p>
             </div>
           </div>
 
@@ -154,9 +142,7 @@ const SurpriseVideoSlider_Fullscreen = ({ open, onClose }) => {
           </div>
 
           {/* Clip counter */}
-          <p className="text-white/80 text-xs mt-3">
-            Clip {index + 1} of {slides.length}
-          </p>
+          <p className="text-white/80 text-xs mt-3">Clip {index + 1} of {slides.length}</p>
         </motion.div>
       )}
     </AnimatePresence>
