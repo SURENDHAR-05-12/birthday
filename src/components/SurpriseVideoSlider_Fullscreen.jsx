@@ -8,7 +8,7 @@ const slides = [
   {src: "./videos/clip4.mp4",title: "VIMALA",desc: "",},
   {src: "./videos/clip5.mp4",title: "SWETHA",desc: "",},
   {src: "./videos/clip6.mp4",title: "CLARA",desc: "",},
-  {src: "./videos/clip7.mp4",title: "",desc: "",},
+  {src: "./videos/clip7.mp4",title: "GAYU",desc: "",},
   {src: "./videos/clip8.mp4",title: "",desc: "",},
   {src: "./videos/clip9.mp4",title: "",desc: "",},
   {src: "./videos/clip10.mp4",title: "",desc: "",},
