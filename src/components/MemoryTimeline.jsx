@@ -82,7 +82,7 @@ export default function MemoryTimeline() {
       </div>
 
       {/* 🎈 Decorative vertical line for timeline */}
-      <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[3px] bg-gradient-to-b from-pink-400 via-purple-400 to-blue-400 rounded-full opacity-30 pointer-events-none"></div>
+       <div className="hidden sm:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[3px] bg-gradient-to-b from-pink-400 via-purple-400 to-blue-400 rounded-full opacity-30 pointer-events-none"></div>
     </div>
   );
 }
