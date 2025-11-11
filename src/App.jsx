@@ -13,32 +13,26 @@ import Balloons from "./components/Balloons";
 import MusicPlayer from "./components/MusicPlayer";
 import SurpriseVideoSlider_Fullscreen from "./components/SurpriseVideoSlider_Fullscreen";
 
-const SITE_TITLE = "Happy Birthday, KABI! 🎂";
-const NAME_NICK = "KABINI";
+const SITE_TITLE = "𝐇𝐚𝐩𝐩𝐲 𝐁𝐢𝐫𝐭𝐡𝐝𝐚𝐲, KABI ";
+const NAME_NICK = "🇰 🇦 🇧 🇮 🇳 🇮 ";
 const BIRTHDAY_DATE = "19 Nov 2025";
 
 const LETTER_TEXT = `
- Happy birthday my sweetest thangachi Kabi 💫💖
+ Happy birthday my dear enemy Kabi 💫💖
 
-Enna solla da, nee en life la vandha moment la irundhu dhan, house la oru special vibe varudhu 💕.
-Morning la nee pesum first word kooda day ah change pannidum 😌.
-Unna paatha time la stress ellam poidum, un smile la enakku peace iruku da ❤️.
+Enna solladrathu, nee en life la vandha moment la irundhu dhan, enakku tholla aarambichuthu 💕.
+Unna paatha time la stress ellam adhigam aagidum, un smile ah paatha enakku erichal ah irukum 
+Un voice, un teasing, un mokkai — ellam mix aagumbothu erichal pala madangu athigam aagidum.
 
-Kabi… nee siricha world ah stop pannura alavuku cute ah iruka 😄.
-Un voice, un teasing, un mokkai, un love — ellam mix aagumbothu en life la oru color add panniduchu 🌈.
-Sometimes fight pannuvom, sometimes silent irupom… but end la anna oda heart la nee dhan favourite person 💕.
+Unna vida periya tholla vera edhum illa for me  — coz nee en thangachi illa, nee oru pisasu mathiri ❤️.
+Ipa pola epayum sanda potutey irupom happy ah..
 
-Unna vida special edhum illa for me da — coz nee en thangachi illa, nee oru heartbeat mathiri ❤️.
-Na unna paatha proud aaguren da Kabi — nee epdi irundha kuda, real ah, kind ah iruka 😇.
-I just want you to chase your dreams boldly, and never lose that beautiful smile 😍.
-
-God bless you with all happiness, success, and peace 💫
+Anyway God bless you with all happiness, success, and peace 💫
 And remember one thing —
 “Un anna always behind you… no matter what happens!” 🤝❤️
 
-Enjoy your day da Kabi 🎂🎉
-Un smile ah kuda cake la ice cream la mix panna kooda indha sweetness varadhu 😋
-Love you loads my kutty queen 👑💖
+Enjoy your day  Kabi 🎂🎉
+Love you lot's my kutty "PISASU" 👑💖
 
 – With lots of love,
 Your Anna 💝
@@ -70,8 +64,8 @@ export default function App() {
         {/* Timeline */}
         <Section
           id="memories"
-          title="The Journey"
-          subtitle="From tiny giggles to big dreams – a timeline of love."
+          title="Let's Begin"
+          subtitle="வாழ்க வாழமுடன்"
         >
           <MemoryTimeline />
         </Section>
@@ -79,8 +73,8 @@ export default function App() {
         {/* Gallery */}
         <Section
           id="gallery"
-          title="Photo Gallery"
-          subtitle="A few of our favourite frames."
+          title="Gallery"
+          subtitle="நினைவுகள்"
         >
           <Gallery />
         </Section>
@@ -89,7 +83,7 @@ export default function App() {
         <Section
           id="letter"
           title={`A Letter to ${NAME_NICK}`}
-          subtitle="Typed from the heart…"
+          subtitle="இதயத்திலிருந்து எழுதிய வார்த்தைகள்…"
         >
           <div className="rounded-2xl border border-white/15 bg-white/5 backdrop-blur p-6 md:p-8 shadow">
             <Typewriter text={LETTER_TEXT} speed={18} />

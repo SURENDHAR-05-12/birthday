@@ -2,10 +2,10 @@ import { motion } from "framer-motion";
 
 const TIMELINE = [
   {
-    year: "2018",
-    title: "The Beginning",
-    desc: "The first moment of pure happiness — your laughter filled our hearts.",
-    image: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=800&auto=format",
+    year: "2005",
+    title: "குட்டி தேவதை",
+    desc: "தவலும் நினைவுகள்",
+    image: "./images/pic1.jpeg",
   },
   {
     year: "2020",

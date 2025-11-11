@@ -14,12 +14,6 @@ const WISHES = [
       "Keep smiling and keep shining, superstar! You make us proud every day ❤️",
     video: "",
   },
-  {
-    from: "Chithi",
-    message:
-      "Our little angel, wishing you a year full of laughter, love, and endless magic ✨",
-    video: "",
-  },
 ];
 
 export default function Wishes() {

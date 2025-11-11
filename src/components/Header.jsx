@@ -45,7 +45,7 @@ const Header = ({ NAME_NICK }) => {
             bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 
             text-2xl drop-shadow-[0_0_15px_rgba(255,255,255,0.25)]"
         >
-          𝐻a𝓅𝓅𝓎 𝒷𝒾𝓇𝓉𝒽𝒹𝒶𝓎 {NAME_NICK} ♡
+          𝐇𝐚𝐩𝐩𝐲 𝐁𝐢𝐫𝐭𝐡𝐝𝐚𝐲 
         </a>
 
         {/* Desktop Nav */}
