@@ -12,71 +12,97 @@ const Header = ({ NAME_NICK }) => {
     { label: "Surprise", href: "#surprise" },
   ];
 
+  // ✅ Smooth Scroll with Offset Fix
   const handleScroll = (e, href) => {
     e.preventDefault();
     const section = document.querySelector(href);
     setMenuOpen(false);
-    if (section) section.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (section) {
+      const yOffset = -30; // Adjust based on header height (h-16 ≈ 64px)
+      const y =
+        section.getBoundingClientRect().top + window.scrollY + yOffset;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
   };
 
   return (
     <header className="sticky top-0 z-50">
-      {/* ---- Top bar ---- */}
-      <div className="mx-auto max-w-6xl px-4 h-14 flex items-center justify-between 
-        bg-gradient-to-r from-fuchsia-600/80 to-pink-600/80 backdrop-blur-md
-        border-b border-white/20 shadow-md rounded-b-xl">
+      {/* ---- Top Nav ---- */}
+      <motion.div
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="mx-auto max-w-7xl px-5 h-16 flex items-center justify-between
+        rounded-b-3xl border border-white/20 backdrop-blur-xl
+        bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-blue-500/20
+        shadow-[0_8px_25px_rgba(0,0,0,0.25)]"
+      >
+        {/* Logo / Title */}
         <a
           href="#top"
           onClick={(e) => handleScroll(e, "#top")}
-          className="font-extrabold tracking-tight text-white text-lg"
+          className="font-extrabold tracking-tight text-transparent bg-clip-text 
+            bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 
+            text-2xl drop-shadow-[0_0_15px_rgba(255,255,255,0.25)]"
         >
-          🎉 {NAME_NICK} B'Day
+          𝐻a𝓅𝓅𝓎 𝒷𝒾𝓇𝓉𝒽𝒹𝒶𝓎 {NAME_NICK} ♡
         </a>
 
         {/* Desktop Nav */}
-        <nav className="hidden sm:flex items-center gap-5 text-sm">
+        <nav className="hidden sm:flex items-center gap-6 text-sm font-medium">
           {navItems.map((n) => (
-            <a
+            <motion.a
               key={n.label}
               href={n.href}
               onClick={(e) => handleScroll(e, n.href)}
-              className="text-white/90 hover:text-white transition font-medium"
+              className="relative text-white/80 hover:text-white px-2 py-1 transition-all duration-300"
+              whileHover={{ scale: 1.1 }}
             >
               {n.label}
-            </a>
+              <motion.span
+                layoutId="nav-underline"
+                className="absolute left-0 bottom-0 w-full h-[2px] bg-gradient-to-r from-pink-400 to-blue-400 rounded-full opacity-0 group-hover:opacity-100"
+              />
+            </motion.a>
           ))}
         </nav>
 
         {/* Mobile Toggle */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="sm:hidden text-2xl text-white focus:outline-none active:scale-90 transition"
+          className="sm:hidden text-3xl text-white/90 active:scale-90 transition"
         >
           {menuOpen ? "✖️" : "☰"}
         </button>
-      </div>
+      </motion.div>
 
       {/* ---- Mobile Drawer ---- */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
             key="menu"
-            initial={{ y: -10, opacity: 0 }}
+            initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -10, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="sm:hidden absolute w-full left-0 bg-gradient-to-b from-fuchsia-700/95 to-pink-600/95
-              backdrop-blur-xl border-t border-white/20 shadow-[0_10px_40px_rgba(0,0,0,0.5)] rounded-b-3xl overflow-hidden"
+            exit={{ y: -20, opacity: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="sm:hidden absolute top-16 left-0 w-full z-40
+            bg-gradient-to-b from-pink-500/30 via-purple-500/20 to-blue-500/30
+            backdrop-blur-2xl border-t border-white/20 shadow-[0_8px_30px_rgba(0,0,0,0.4)]
+            rounded-b-3xl overflow-hidden"
           >
-            <nav className="flex flex-col px-6 py-4 space-y-2">
-              {navItems.map((n) => (
+            <nav className="flex flex-col px-6 py-5 space-y-3">
+              {navItems.map((n, i) => (
                 <motion.a
                   key={n.label}
                   href={n.href}
                   onClick={(e) => handleScroll(e, n.href)}
-                  whileTap={{ scale: 0.96 }}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.45, delay: i * 0.08 }}
+                  whileTap={{ scale: 0.95 }}
                   className="py-3 rounded-xl text-base font-semibold text-white/90 text-center
-                    bg-white/10 hover:bg-white/20 transition"
+                    bg-white/10 hover:bg-white/20 border border-white/10 shadow-md 
+                    transition-all duration-300"
                 >
                   {n.label}
                 </motion.a>

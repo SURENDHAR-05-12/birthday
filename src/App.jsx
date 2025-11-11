@@ -18,15 +18,30 @@ const NAME_NICK = "KABINI";
 const BIRTHDAY_DATE = "19 Nov 2025";
 
 const LETTER_TEXT = `
- Dear KABI,
+ Happy birthday my sweetest thangachi Kabi 💫💖
 
-From your first tiny smile to the way you light up every room today — you are our sunshine.
-Every memory with you is a little miracle. On your special day, I want you to know how
-much you mean to me, how proud I am of you, and how excited I am to watch you grow.
+Enna solla da, nee en life la vandha moment la irundhu dhan, house la oru special vibe varudhu 💕.
+Morning la nee pesum first word kooda day ah change pannidum 😌.
+Unna paatha time la stress ellam poidum, un smile la enakku peace iruku da ❤️.
 
-Keep laughing, keep dreaming, and keep being your beautiful kind self. I love you to the moon and back.
+Kabi… nee siricha world ah stop pannura alavuku cute ah iruka 😄.
+Un voice, un teasing, un mokkai, un love — ellam mix aagumbothu en life la oru color add panniduchu 🌈.
+Sometimes fight pannuvom, sometimes silent irupom… but end la anna oda heart la nee dhan favourite person 💕.
 
-— With all my love ❤️
+Unna vida special edhum illa for me da — coz nee en thangachi illa, nee oru heartbeat mathiri ❤️.
+Na unna paatha proud aaguren da Kabi — nee epdi irundha kuda, real ah, kind ah iruka 😇.
+I just want you to chase your dreams boldly, and never lose that beautiful smile 😍.
+
+God bless you with all happiness, success, and peace 💫
+And remember one thing —
+“Un anna always behind you… no matter what happens!” 🤝❤️
+
+Enjoy your day da Kabi 🎂🎉
+Un smile ah kuda cake la ice cream la mix panna kooda indha sweetness varadhu 😋
+Love you loads my kutty queen 👑💖
+
+– With lots of love,
+Your Anna 💝
 `;
 
 export default function App() {

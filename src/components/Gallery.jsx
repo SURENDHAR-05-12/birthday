@@ -25,55 +25,70 @@ export default function Gallery() {
   const prev = () => setIndex((i) => (i - 1 + GALLERY.length) % GALLERY.length);
 
   return (
-    <div className="relative rounded-2xl overflow-hidden shadow-2xl w-full group">
-      {/* Image fade transition */}
+    <div className="relative w-full overflow-hidden rounded-3xl shadow-[0_0_40px_rgba(0,0,0,0.4)] group">
+      {/* Background Glass Glow */}
+      <div className="absolute inset-0 bg-gradient-to-br from-pink-500/10 via-blue-500/10 to-purple-500/10 backdrop-blur-lg z-[1]" />
+
+      {/* 🖼 Smooth but faster transitions */}
       <motion.img
         key={GALLERY[index]}
         src={GALLERY[index]}
         alt={`gallery-${index}`}
         initial={{ opacity: 0, scale: 1.02 }}
         animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.8, ease: "easeInOut" }}
-        className="w-full h-[40vh] sm:h-[55vh] object-cover rounded-2xl select-none"
+        transition={{ duration: 0.4, ease: "easeOut" }} // faster
+        className="relative w-full h-[45vh] sm:h-[60vh] object-cover rounded-3xl select-none z-[2]"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       />
 
-      {/* ⬅ Prev Button */}
-      <button
-        onClick={() => {
-          setPaused(true);
-          prev();
-        }}
-        className="absolute top-1/2 left-3 sm:left-6 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white p-2 sm:p-3 rounded-full transition opacity-0 group-hover:opacity-100 active:scale-95"
-      >
-        ⏮
-      </button>
+      {/* 🌈 Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent z-[3]" />
 
-      {/* ➡ Next Button */}
-      <button
-        onClick={() => {
-          setPaused(true);
-          next();
-        }}
-        className="absolute top-1/2 right-3 sm:right-6 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white p-2 sm:p-3 rounded-full transition opacity-0 group-hover:opacity-100 active:scale-95"
-      >
-        ⏭
-      </button>
+      {/* 🎛️ Navigation */}
+      <div className="absolute inset-0 flex items-center justify-between px-4 sm:px-6 z-[4]">
+        <motion.button
+          onClick={() => {
+            setPaused(true);
+            prev();
+          }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          className="p-3 sm:p-4 rounded-full bg-white/10 text-white backdrop-blur-md border border-white/20 shadow-lg"
+        >
+          ⏮
+        </motion.button>
 
-      {/* 🔘 Dots Indicator */}
-      <div className="absolute inset-x-0 bottom-0 flex justify-center gap-2 pb-3 sm:pb-4">
+        <motion.button
+          onClick={() => {
+            setPaused(true);
+            next();
+          }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          className="p-3 sm:p-4 rounded-full bg-white/10 text-white backdrop-blur-md border border-white/20 shadow-lg"
+        >
+          ⏭
+        </motion.button>
+      </div>
+
+      {/* 🔘 Indicators */}
+      <div className="absolute inset-x-0 bottom-4 flex justify-center gap-2 z-[5]">
         {GALLERY.map((_, i) => (
-          <button
+          <motion.button
             key={i}
             onClick={() => setIndex(i)}
-            className={`h-2 w-6 sm:w-8 rounded-full transition-all ${
-              i === index ? "bg-white" : "bg-white/40"
+            whileHover={{ scale: 1.2 }}
+            className={`h-2.5 w-8 rounded-full transition-all ${
+              i === index
+                ? "bg-gradient-to-r from-pink-400 to-blue-400 shadow-[0_0_10px_rgba(255,255,255,0.6)]"
+                : "bg-white/30 hover:bg-white/50"
             }`}
           />
         ))}
       </div>
+
+      <div className="absolute inset-0 rounded-3xl border border-white/10 shadow-[0_0_30px_rgba(255,255,255,0.08)] pointer-events-none" />
     </div>
   );
 }
