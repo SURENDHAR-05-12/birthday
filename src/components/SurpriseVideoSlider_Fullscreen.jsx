@@ -11,6 +11,7 @@ const slides = [
   { src: "./videos/clip7.mp4", title: "GAYU" },
   { src: "./videos/clip8.mp4", title: "SRI" },
   { src: "./videos/clip9.mp4", title: "MEGAA" },
+  { src: "./videos/clip10.mp4", title: "SUSHMITHA" },
 ];
 
 const SurpriseVideoSlider_Fullscreen = ({ open, onClose }) => {
