@@ -8,22 +8,22 @@ const TIMELINE = [
     image: "./images/pic1.jpeg",
   },
   {
-    year: "2020",
-    title: "Little Explorer",
-    desc: "Curious eyes, tiny steps — every day a new adventure began.",
-    image: "https://images.unsplash.com/photo-1608889175212-3b45c09a0a7f?q=80&w=800&auto=format",
-  },
-  {
     year: "2023",
-    title: "Bright Star",
-    desc: "Your smile shines brighter than any star in the sky.",
-    image: "https://images.unsplash.com/photo-1531642764202-d17f08e37d90?q=80&w=800&auto=format",
+    title: "பள்ளி பருவம்",
+    desc: "பள்ளி நினைவுகள்",
+    image: "./images/pic2.jpeg",
   },
   {
-    year: "2025",
-    title: "The Celebration",
-    desc: "A special year, filled with joy, laughter, and love from everyone.",
-    image: "https://images.unsplash.com/photo-1519744346369-3f63a417c5d0?q=80&w=800&auto=format",
+    year: "2008",
+    title: "உறவு",
+    desc: "மலரும் நினைவுகள்",
+    image: "./images/pic3.jpeg",
+  },
+  {
+    year: "2022",
+    title: "உயிர்",
+    desc: "உயிரை எடுக்கும் உயிர்",
+    image: "./images/pic4.jpeg",
   },
 ];
 

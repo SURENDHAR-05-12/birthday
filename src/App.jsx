@@ -7,6 +7,7 @@ import Hero from "./components/Hero";
 import Section from "./components/Section";
 import MemoryTimeline from "./components/MemoryTimeline";
 import Gallery from "./components/Gallery";
+import VideoSection from "./components/VideoSection";
 import Wishes from "./components/Wishes";
 import Typewriter from "./components/Typewriter";
 import Balloons from "./components/Balloons";
@@ -35,7 +36,7 @@ Enjoy your day  Kabi 🎂🎉
 Love you lot's my kutty "PISASU" 👑💖
 
 – With lots of love,
-Your Anna 💝
+Your Enemy 💝
 `;
 
 export default function App() {
@@ -79,6 +80,11 @@ export default function App() {
           <Gallery />
         </Section>
 
+        <section id="videos" className="mt-20">
+           <VideoSection />
+        </section>
+
+
         {/* Heartfelt Letter */}
         <Section
           id="letter"
@@ -93,8 +99,8 @@ export default function App() {
         {/* Family Wishes */}
         <Section
           id="wishes"
-          title="With Love, From Family & Friends"
-          subtitle="Tap to play videos if added."
+          title="With Love, From Parents"
+          subtitle="Tap to play video"
         >
           <Wishes />
         </Section>

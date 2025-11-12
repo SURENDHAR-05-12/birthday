@@ -3,15 +3,14 @@ import { useMemo } from "react";
 
 const WISHES = [
   {
-    from: "Amma",
+    from: "அம்மா",
     message:
-      "Happy birthday, kanna! You make every day brighter. Proud of you always!",
-    video: "",
+      "பிறந்தநாள் வாழ்த்துக்கள்❤️",
   },
   {
-    from: "Appa",
+    from: "அப்பா",
     message:
-      "Keep smiling and keep shining, superstar! You make us proud every day ❤️",
+      "பிறந்தநாள் வாழ்த்துக்கள்❤️",
     video: "",
   },
 ];

@@ -7,6 +7,7 @@ const Header = ({ NAME_NICK }) => {
   const navItems = [
     { label: "Memories", href: "#memories" },
     { label: "Gallery", href: "#gallery" },
+    { label: "Videos", href: "#videos" },
     { label: "Letter", href: "#letter" },
     { label: "Wishes", href: "#wishes" },
     { label: "Surprise", href: "#surprise" },

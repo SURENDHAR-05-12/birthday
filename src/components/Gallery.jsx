@@ -2,10 +2,24 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 const GALLERY = [
-  "https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=1600&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=1600&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1549729574-ef4999c19012?q=80&w=1600&auto=format&fit=crop",
+  "./images/img1.jpeg",
+  "./images/img2.jpeg",
+  "./images/img3.jpeg",
+  "./images/img4.jpeg",
+  "./images/img5.jpeg",
+  "./images/img6.jpeg",
+  "./images/img7.jpeg",
+  "./images/img8.jpeg",
+  "./images/img9.jpeg",
+  "./images/img10.jpeg",
+  "./images/img11.jpeg",
+  "./images/img12.jpeg",
+  "./images/img13.jpeg",
+  "./images/img14.jpeg",
+  "./images/img15.jpeg",
+  "./images/img16.jpeg",
+  "./images/img17.jpeg",
+  "./images/img18.jpeg",
 ];
 
 export default function Gallery() {
