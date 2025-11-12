@@ -19,7 +19,18 @@ const GALLERY = [
   "./images/img15.jpeg",
   "./images/img16.jpeg",
   "./images/img17.jpeg",
-  "./images/img18.jpeg",
+  "./images/img19.jpeg",
+  "./images/img20.jpeg",
+  "./images/img21.jpeg",
+  "./images/img22.jpeg",
+  "./images/img23.jpeg",
+  "./images/img24.jpeg",
+  "./images/img25.jpeg",
+  "./images/img26.jpeg",
+  "./images/img27.jpeg",
+  "./images/img28.jpeg",
+  "./images/img29.jpeg",
+  "./images/img30.jpeg",
 ];
 
 export default function Gallery() {
