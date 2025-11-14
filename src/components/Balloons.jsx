@@ -1,54 +1,48 @@
 import { motion } from "framer-motion";
 import { useMemo } from "react";
 
-export default function Balloons() {
-  const balloonCount = typeof window !== "undefined" && window.innerWidth < 640 ? 6 : 12;
+export default function CelebrationShimmer() {
+  const shimmerCount = typeof window !== "undefined" && window.innerWidth < 640 ? 15 : 30;
 
-  // 🎨 Random colors for balloons
-  const colors = ["#ff80b5", "#8b5cf6", "#3b82f6", "#f59e0b", "#22d3ee", "#ec4899"];
-
-  // 🪩 Memoize random properties so balloons stay consistent on re-renders
-  const balloons = useMemo(() => {
-    return Array.from({ length: balloonCount }).map(() => ({
-      color: colors[Math.floor(Math.random() * colors.length)],
+  const particles = useMemo(() => {
+    return Array.from({ length: shimmerCount }).map(() => ({
       left: `${Math.random() * 100}%`,
-      size: Math.random() * 30 + 25, // 25px - 55px
-      delay: Math.random() * 6,
-      duration: 12 + Math.random() * 10,
-      xDrift: Math.random() * 40 - 20, // side motion
-      emoji: ["🎈", "🎉", "💖"][Math.floor(Math.random() * 3)],
+      size: Math.random() * 6 + 3, // 3px - 9px dots
+      delay: Math.random() * 4,
+      duration: 6 + Math.random() * 6,
+      color: Math.random() > 0.5 ? "#FFD700" : "#C0C0C0", // gold / silver
+      xDrift: Math.random() * 50 - 25,
     }));
-  }, [balloonCount]);
+  }, [shimmerCount]);
 
   return (
-    <div className="pointer-events-none fixed inset-0 overflow-hidden z-[50]">
-      {balloons.map((b, i) => (
+    <div className="pointer-events-none fixed inset-0 overflow-hidden z-[40]">
+      {particles.map((p, i) => (
         <motion.div
           key={i}
-          initial={{ y: "100vh", x: 0, opacity: 0 }}
+          initial={{ y: "110vh", x: 0, opacity: 0 }}
           animate={{
-            y: ["100vh", "-150px"],
-            x: [0, b.xDrift, -b.xDrift / 2],
+            y: ["110vh", "-10vh"],
+            x: [0, p.xDrift, -p.xDrift],
             opacity: [0, 1, 1, 0],
-            rotate: [0, 5, -5, 0],
+            scale: [0.9, 1.2, 1],
           }}
           transition={{
-            duration: b.duration,
-            delay: b.delay,
+            duration: p.duration,
+            delay: p.delay,
             repeat: Infinity,
             ease: "easeInOut",
           }}
           style={{
-            left: b.left,
-            fontSize: `${b.size}px`,
-            color: b.color,
-            textShadow: `0 0 10px ${b.color}55, 0 0 20px ${b.color}66`,
-            filter: "drop-shadow(0 0 10px rgba(255,255,255,0.2))",
+            left: p.left,
+            width: p.size,
+            height: p.size,
+            backgroundColor: p.color,
+            borderRadius: "50%",
+            boxShadow: `0 0 12px ${p.color}, 0 0 20px ${p.color}88`,
           }}
           className="absolute"
-        >
-          {b.emoji}
-        </motion.div>
+        />
       ))}
     </div>
   );

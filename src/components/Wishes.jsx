@@ -1,44 +1,44 @@
+import React, { useMemo } from "react";
 import { motion } from "framer-motion";
-import { useMemo } from "react";
 
 const WISHES = [
   {
     from: "அம்மா",
-    message:
-      "பிறந்தநாள் வாழ்த்துக்கள்❤️",
+    message: "பிறந்தநாள் வாழ்த்துக்கள்❤️",
   },
   {
     from: "அப்பா",
-    message:
-      "பிறந்தநாள் வாழ்த்துக்கள்❤️",
+    message: "பிறந்தநாள் வாழ்த்துக்கள்❤️",
     video: "",
   },
 ];
 
 export default function Wishes() {
-  // 🎈 Generate small floating heart particles
   const hearts = useMemo(
     () =>
-      Array.from({ length: 10 }).map(() => ({
+      Array.from({ length: 12 }).map(() => ({
         left: `${Math.random() * 100}%`,
         delay: Math.random() * 6,
         duration: 5 + Math.random() * 5,
-        size: Math.random() * 20 + 10,
+        size: Math.random() * 18 + 14,
       })),
     []
   );
 
   return (
-    <div className="relative">
-      {/* 💞 Floating Heart Background */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+    <section
+      id="wishes"
+      className="relative py-16 sm:py-24 px-5 flex flex-col items-center"
+    >
+      {/* Floating hearts background (light, not distracting) */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-40">
         {hearts.map((h, i) => (
           <motion.span
             key={i}
-            initial={{ y: "100%", opacity: 0 }}
+            initial={{ y: "110%", opacity: 0 }}
             animate={{
-              y: ["100%", "-10%"],
-              opacity: [0, 0.6, 0],
+              y: ["110%", "-10%"],
+              opacity: [0, 0.55, 0],
             }}
             transition={{
               delay: h.delay,
@@ -49,63 +49,63 @@ export default function Wishes() {
             style={{
               left: h.left,
               fontSize: `${h.size}px`,
-              color: "rgba(255, 192, 203, 0.6)",
             }}
-            className="absolute"
+            className="absolute text-pink-300"
           >
             💖
           </motion.span>
         ))}
       </div>
 
-      {/* 🌈 Wish Cards */}
-      <div className="relative grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 z-[10]">
+      {/* Section heading */}
+      <h2 className="relative z-10 text-3xl sm:text-4xl font-extrabold text-transparent bg-clip-text 
+      bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 mb-12 text-center">
+        வாழ்த்துக்கள் ♡
+      </h2>
+
+      {/* Cards */}
+      <div className="relative z-10 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl w-full">
         {WISHES.map((w, i) => (
           <motion.div
             key={i}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: i * 0.1 }}
-            whileHover={{ scale: 1.03, y: -6 }}
-            className="group relative rounded-3xl border border-white/10 
-              bg-gradient-to-br from-white/10 via-white/5 to-transparent 
-              backdrop-blur-xl shadow-[0_0_30px_rgba(255,255,255,0.1)] 
-              p-5 sm:p-6 overflow-hidden transition-all duration-500"
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.55, delay: i * 0.1 }}
+            whileHover={{ scale: 1.03 }}
+            className="relative rounded-2xl p-6 sm:p-7 
+            bg-white/10 backdrop-blur-xl border border-white/15
+            shadow-[0_0_35px_rgba(0,0,0,0.35)]
+            hover:shadow-[0_0_45px_rgba(0,0,0,0.45)]
+            transition-all duration-400"
           >
-            {/* ✨ Gradient Shine Overlay */}
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-pink-400/10 via-blue-400/10 to-purple-400/10 opacity-0 group-hover:opacity-100 transition-all duration-700"
-            />
+            {/* From */}
+            <h3 className="text-xl sm:text-2xl font-bold 
+              bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-blue-400 mb-2">
+              {w.from}
+            </h3>
 
-            {/* ❤️ Header */}
-            <div className="relative mb-3 flex items-center justify-between">
-              <h3 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-pink-400 to-blue-400 text-transparent bg-clip-text">
-                {w.from}
-              </h3>
-              <span className="text-lg sm:text-xl">💌</span>
-            </div>
-
-            {/* 📝 Message */}
-            <p className="relative text-white/90 text-sm sm:text-base leading-relaxed mb-4">
+            {/* Message */}
+            <p className="text-white/90 text-sm sm:text-base leading-relaxed mb-4">
               {w.message}
             </p>
 
-            {/* 🎥 Optional Video */}
+            {/* Video (optional) */}
             {w.video ? (
               <video
                 src={w.video}
                 controls
-                className="relative w-full rounded-xl border border-white/10 mt-2 shadow-lg"
+                className="w-full rounded-xl border border-white/15 shadow-lg"
               />
             ) : (
-              <div className="relative rounded-xl border border-white/10 p-3 text-xs sm:text-sm text-white/60 text-center bg-white/5">
+              <div className="rounded-xl text-white/60 text-xs sm:text-sm 
+              bg-white/5 border border-white/10 p-3 text-center">
                 (Video message coming soon 💫)
               </div>
             )}
           </motion.div>
         ))}
       </div>
-    </div>
+    </section>
   );
 }

@@ -81,7 +81,7 @@ export default function App() {
         </Section>
 
         <section id="videos" className="mt-20">
-           <VideoSection />
+          <VideoSection />
         </section>
 
 
@@ -112,12 +112,27 @@ export default function App() {
           subtitle="Click the button when you're ready!"
         >
           <div className="flex flex-col items-center text-center">
-            <button
+            <motion.button
               onClick={() => setSliderOpen(true)}
-              className="rounded-2xl bg-white text-black px-6 py-3 w-full sm:w-auto font-bold shadow hover:shadow-lg transition"
+              whileHover={{ scale: 1.07 }}
+              whileTap={{ scale: 0.93 }}
+              className="relative group px-10 py-3 font-bold text-lg tracking-wide
+  text-white rounded-2xl overflow-hidden
+  bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500
+  shadow-[0_0_20px_rgba(255,255,255,0.25)] transition"
             >
+              {/* ✨ Glow border on hover */}
+              <span className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100
+  bg-gradient-to-r from-white/40 via-transparent to-white/40 blur-xl transition duration-500"></span>
+
+              {/* 🔥 Shiny swipe reflection */}
+              <span className="absolute inset-0 translate-x-[-120%] group-hover:translate-x-[120%]
+  bg-gradient-to-r from-transparent via-white/60 to-transparent
+  skew-x-12 transition duration-700"></span>
+
               🎁 Open Surprise
-            </button>
+            </motion.button>
+
           </div>
 
           {/* Fullscreen Video Slider */}

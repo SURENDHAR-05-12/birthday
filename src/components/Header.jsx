@@ -46,7 +46,7 @@ const Header = ({ NAME_NICK }) => {
             bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 
             text-2xl drop-shadow-[0_0_15px_rgba(255,255,255,0.25)]"
         >
-          𝐇𝐚𝐩𝐩𝐲 𝐁𝐢𝐫𝐭𝐡𝐝𝐚𝐲 
+          𝐇𝐚𝐩𝐩𝐲 𝐁𝐢𝐫𝐭𝐡𝐝𝐚𝐲
         </a>
 
         {/* Desktop Nav */}
@@ -71,9 +71,17 @@ const Header = ({ NAME_NICK }) => {
         {/* Mobile Toggle */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="sm:hidden text-3xl text-white/90 active:scale-90 transition"
+          className="sm:hidden flex items-center justify-center w-11 h-11 rounded-xl 
+         bg-white/5 border border-white/10 backdrop-blur-md
+          active:scale-95 transition shadow-[0_0_8px_rgba(0,0,0,0.3)]"
         >
-          {menuOpen ? "✖️" : "☰"}
+          <motion.span
+            animate={{ rotate: menuOpen ? 180 : 0 }}
+            transition={{ duration: 0.28 }}
+            className="text-xl text-white/90"
+          >
+            {menuOpen ? "✕" : "≡"}
+          </motion.span>
         </button>
       </motion.div>
 

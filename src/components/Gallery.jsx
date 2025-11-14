@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
 
 const GALLERY = [
   "./images/img1.jpeg",
@@ -36,13 +36,11 @@ const GALLERY = [
 export default function Gallery() {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
+  const containerRef = useRef(null);
 
-  // ⏰ Auto-slide every 4s if not paused
   useEffect(() => {
     if (paused) return;
-    const id = setInterval(() => {
-      setIndex((i) => (i + 1) % GALLERY.length);
-    }, 4000);
+    const id = setInterval(() => next(), 3500);
     return () => clearInterval(id);
   }, [paused]);
 
@@ -50,70 +48,99 @@ export default function Gallery() {
   const prev = () => setIndex((i) => (i - 1 + GALLERY.length) % GALLERY.length);
 
   return (
-    <div className="relative w-full overflow-hidden rounded-3xl shadow-[0_0_40px_rgba(0,0,0,0.4)] group">
-      {/* Background Glass Glow */}
-      <div className="absolute inset-0 bg-gradient-to-br from-pink-500/10 via-blue-500/10 to-purple-500/10 backdrop-blur-lg z-[1]" />
-
-      {/* 🖼 Smooth but faster transitions */}
-      <motion.img
-        key={GALLERY[index]}
-        src={GALLERY[index]}
-        alt={`gallery-${index}`}
-        initial={{ opacity: 0, scale: 1.02 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.4, ease: "easeOut" }} // faster
-        className="relative w-full h-[45vh] sm:h-[60vh] object-cover rounded-3xl select-none z-[2]"
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
+    <div
+      ref={containerRef}
+      className="relative w-full h-[48vh] sm:h-[65vh] overflow-hidden rounded-[2.2rem]
+      shadow-[0_0_60px_rgba(0,0,0,0.45)] group"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      {/* ⭐ 3D parallax glow background */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-br from-pink-500/10 via-blue-500/10 to-purple-500/10 backdrop-blur-xl"
+        animate={{ opacity: [0.7, 1, 0.7] }}
+        transition={{ repeat: Infinity, duration: 5 }}
       />
 
-      {/* 🌈 Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent z-[3]" />
+      {/* 🎯 Animated Slide */}
+      <AnimatePresence mode="wait">
+        <motion.img
+          key={GALLERY[index]}
+          src={GALLERY[index]}
+          draggable={false}
+          className="absolute inset-0 w-full h-full object-cover rounded-[2.2rem]"
+          initial={{ opacity: 0, scale: 1.08 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.92 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          whileHover={{ scale: 1.015 }}
+        />
+      </AnimatePresence>
 
-      {/* 🎛️ Navigation */}
-      <div className="absolute inset-0 flex items-center justify-between px-4 sm:px-6 z-[4]">
+      {/* 🌪 3D glow tilt */}
+      <motion.div
+        className="absolute inset-0 rounded-[2.2rem] pointer-events-none"
+        whileHover={{ rotateX: -4, rotateY: 4 }}
+        transition={{ type: "spring", stiffness: 200, damping: 22 }}
+      />
+
+      {/* 🧭 Controls */}
+      <div className="absolute inset-0 flex items-center justify-between px-6 z-[5]">
         <motion.button
-          onClick={() => {
-            setPaused(true);
-            prev();
-          }}
-          whileHover={{ scale: 1.1 }}
+          whileHover={{ scale: 1.13 }}
           whileTap={{ scale: 0.9 }}
-          className="p-3 sm:p-4 rounded-full bg-white/10 text-white backdrop-blur-md border border-white/20 shadow-lg"
+          onClick={prev}
+          className="p-4 rounded-full bg-black/10 text-white border border-white/20 
+          shadow-[0_0_20px_rgba(255,255,255,0.35)]"
         >
           ⏮
         </motion.button>
 
         <motion.button
-          onClick={() => {
-            setPaused(true);
-            next();
-          }}
-          whileHover={{ scale: 1.1 }}
+          whileHover={{ scale: 1.13 }}
           whileTap={{ scale: 0.9 }}
-          className="p-3 sm:p-4 rounded-full bg-white/10 text-white backdrop-blur-md border border-white/20 shadow-lg"
+          onClick={next}
+          className="p-4 rounded-full bg-black/10 text-white border border-white/20 
+          shadow-[0_0_20px_rgba(255,255,255,0.35)]"
         >
           ⏭
         </motion.button>
       </div>
 
-      {/* 🔘 Indicators */}
-      <div className="absolute inset-x-0 bottom-4 flex justify-center gap-2 z-[5]">
-        {GALLERY.map((_, i) => (
-          <motion.button
-            key={i}
-            onClick={() => setIndex(i)}
-            whileHover={{ scale: 1.2 }}
-            className={`h-2.5 w-8 rounded-full transition-all ${
-              i === index
-                ? "bg-gradient-to-r from-pink-400 to-blue-400 shadow-[0_0_10px_rgba(255,255,255,0.6)]"
-                : "bg-white/30 hover:bg-white/50"
-            }`}
-          />
-        ))}
+      {/* 🔥 3-DOT SLIDING INDICATOR */}
+      <div className="absolute bottom-4 inset-x-0 flex justify-center z-[7]">
+        <motion.div
+          layout             // ⭐ IMPORTANT — tells Framer to animate position change
+          className="flex gap-6"
+          transition={{ duration: 0.35, type: "spring", stiffness: 280, damping: 22 }}
+        >
+          {[index - 1, index, index + 1].map((pos, i) => {
+            const realIndex = (pos + GALLERY.length) % GALLERY.length;
+            const isActive = realIndex === index;
+
+            return (
+              <motion.div
+                key={realIndex}       // ⭐ not i — use realIndex to trigger animation
+                layout                // ⭐ dot itself animates sliding
+                onClick={() => setIndex(realIndex)}
+                className="bg-white rounded-full cursor-pointer"
+                animate={{
+                  width: isActive ? 11 : 7,
+                  height: isActive ? 11 : 7,
+                  opacity: isActive ? 1 : 0.4,
+                  scale: isActive ? 1.18 : 1,
+                }}
+                transition={{ duration: 0.32, type: "spring" }}
+              />
+            );
+          })}
+        </motion.div>
       </div>
 
-      <div className="absolute inset-0 rounded-3xl border border-white/10 shadow-[0_0_30px_rgba(255,255,255,0.08)] pointer-events-none" />
+
+
+      {/* Border outline */}
+      <div className="absolute inset-0 rounded-[2.2rem] border border-white/20 pointer-events-none" />
     </div>
   );
 }
