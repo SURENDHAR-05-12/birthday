@@ -152,13 +152,14 @@ const SurpriseVideoSlider_Fullscreen = ({ open, onClose }) => {
               ref={videoRef}
               src={slides[index].src}
               onLoadedMetadata={handleMetadata}
+              onEnded={() => changeVideo("next")}
               className="relative w-full h-full object-cover sm:object-contain z-[2]"
               autoPlay={playing}
-              loop
+              loop={false}
               playsInline
               muted={false}
               animate={{ opacity: fade ? 0 : 1 }}
-              transition={{ duration: 0.33, ease: "easeOut" }}
+              transition={{ duration: 0.1, ease: "easeOut" }}
             />
 
             {/* Dark Overlay */}
