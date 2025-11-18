@@ -16,6 +16,8 @@ const slides = [
   { src: "./videos/clip12.mp4", title: "ILAKKI" },
   { src: "./videos/clip13.mp4", title: "HARINI" },
   { src: "./videos/clip14.mp4", title: "SITHAPA" },
+  { src: "./videos/clip15.mp4", title: "VIJI AKKA" },
+  { src: "./videos/clip16.mp4", title: "AMMACHI" },
 ];
 
 const SurpriseVideoSlider_Fullscreen = ({ open, onClose }) => {

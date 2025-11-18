@@ -1,121 +1,162 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Play, Pause, Volume2, VolumeX } from "lucide-react";
+import React, { useRef, useState, useEffect } from "react";
+import { Play, Pause, Volume2, VolumeX, ChevronLeft, ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 const VIDEOS = [
-  { src: "./videos/vid1.mp4", title: "", desc: "" },
-  { src: "./videos/vid2.mp4", title: "", desc: "" },
+  { src: "./videos/vid1.mp4", title: "" },
+  { src: "./videos/vid2.mp4", title: "" },
+  { src: "./videos/vid3.mp4", title: "School Days" },
+  { src: "./videos/vid4.mp4", title: "" },
+  { src: "./videos/vid5.mp4", title: "" },
+  { src: "./videos/vid6.mp4", title: "" },
+  { src: "./videos/vid7.mp4", title: "" },
+  { src: "./videos/vid8.mp4", title: "" },
+  { src: "./videos/vid9.mp4", title: "" },
+  { src: "./videos/vid10.mp4", title: "" },
 ];
 
 export default function VideoSection() {
+  const [active, setActive] = useState(0);
+
+  const next = () => setActive((p) => (p < VIDEOS.length - 1 ? p + 1 : p));
+  const prev = () => setActive((p) => (p > 0 ? p - 1 : p));
+
   return (
     <section
       id="videos"
-      className="relative z-10 py-16 sm:py-24 flex flex-col items-center justify-center
-      bg-gradient-to-b from-purple-900/20 via-pink-900/10 to-blue-900/20 backdrop-blur-xl"
+      className="relative py-20 flex flex-col items-center justify-center overflow-hidden"
     >
+      {/* Heading */}
       <h2 className="text-3xl sm:text-4xl font-bold text-transparent bg-clip-text 
-      bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 mb-12 text-center">
-        தோழர்கள்
+        bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 mb-14 text-center">
+        தோழிகள்
       </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-6xl w-full px-6">
+      {/* Carousel wrapper */}
+      <div className="relative w-full max-w-6xl h-[420px] flex items-center justify-center">
+        
+        {/* Cards */}
         {VIDEOS.map((video, i) => (
-          <GlassyVideoCard key={i} video={video} />
+          <VideoCard
+            key={i}
+            video={video}
+            index={i}
+            active={active}
+            setActive={setActive}
+          />
         ))}
+
+        {/* Prev Button */}
+        {active > 0 && (
+          <button
+            onClick={prev}
+            className="absolute left-0 sm:left-1 p-2 rounded-full bg-white/15 border border-white/20 
+            text-white backdrop-blur-xl hover:bg-white/25 transition"
+          >
+            <ChevronLeft size={28} />
+          </button>
+        )}
+
+        {/* Next Button */}
+        {active < VIDEOS.length - 1 && (
+          <button
+            onClick={next}
+            className="absolute right-0 sm:right-1 p-2 rounded-full bg-white/15 border border-white/20 
+            text-white backdrop-blur-xl hover:bg-white/25 transition"
+          >
+            <ChevronRight size={28} />
+          </button>
+        )}
       </div>
     </section>
   );
 }
 
-// 🔥 Single video card component
-function GlassyVideoCard({ video }) {
-  const videoRef = useRef(null);
+// -----------------------------------------------
+// 🔥 Single Carousel Card
+// -----------------------------------------------
+
+function VideoCard({ video, index, active, setActive }) {
+  const ref = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
 
-  // Auto pause when video is outside viewport
-  useEffect(() => {
-    const handler = () => {
-      const rect = videoRef.current.getBoundingClientRect();
-      const visible = rect.top >= 0 && rect.bottom <= window.innerHeight;
-      if (!visible && isPlaying) {
-        videoRef.current.pause();
-        setIsPlaying(false);
-      }
-    };
-    window.addEventListener("scroll", handler);
-    return () => window.removeEventListener("scroll", handler);
-  }, [isPlaying]);
-
   const togglePlay = () => {
-    const vid = videoRef.current;
-    if (!vid) return;
-    if (isPlaying) vid.pause();
-    else vid.play();
+    if (!ref.current) return;
+    if (isPlaying) ref.current.pause();
+    else ref.current.play();
     setIsPlaying(!isPlaying);
   };
 
   const toggleMute = () => {
-    const vid = videoRef.current;
-    vid.muted = !vid.muted;
+    ref.current.muted = !ref.current.muted;
     setIsMuted(!isMuted);
   };
 
   return (
-    <div
-      className="relative group rounded-3xl overflow-hidden
-      border border-white/10 bg-white/5 backdrop-blur-xl
-      shadow-[0_0_40px_rgba(0,0,0,0.4)] hover:shadow-[0_0_55px_rgba(0,0,0,0.5)]
-      transition-all duration-500"
+    <motion.div
+      onClick={() => setActive(index)}
+      className="absolute rounded-3xl overflow-hidden bg-white/5 backdrop-blur-xl border border-white/15 shadow-xl cursor-pointer"
+      layout
+      animate={{
+        x: (index - active) * 360,
+        scale: index === active ? 1 : 0.78,
+        opacity: index === active ? 1 : 0.4,
+        zIndex: index === active ? 20 : 5,
+        rotateY: index === active ? 0 : (index < active ? 8 : -8),
+      }}
+      transition={{ type: "spring", stiffness: 120, damping: 18, mass: 0.25 }}
+      whileHover={index === active ? { scale: 1.03 } : {}}
     >
       {/* Video */}
       <video
-        ref={videoRef}
+        ref={ref}
         src={video.src}
-        loop
         muted={isMuted}
+        loop
         playsInline
-        className="w-full h-[280px] sm:h-[340px] md:h-[380px] lg:h-[420px]
-        object-cover cursor-pointer transition-all duration-400"
-        onClick={togglePlay}
+        className="w-[300px] sm:w-[360px] md:w-[400px] h-[420px] object-cover"
+        onClick={(e) => {
+          e.stopPropagation(); 
+          togglePlay();
+        }}
       />
 
-      {/* Dark overlay fade when paused */}
-      <div
-        className={`absolute inset-0 transition-opacity duration-500 pointer-events-none ${
-          isPlaying ? "opacity-30" : "opacity-60"
-        } bg-gradient-to-t from-black via-black/40 to-transparent`}
-      />
-
-      {/* Controls */}
-      <div className="absolute top-3 right-3 flex gap-3">
-        <ControlButton onClick={togglePlay}>
-          {isPlaying ? <Pause size={22} /> : <Play size={22} />}
-        </ControlButton>
-        <ControlButton onClick={toggleMute}>
-          {isMuted ? <VolumeX size={22} /> : <Volume2 size={22} />}
-        </ControlButton>
-      </div>
-
-      {/* Title + Desc */}
-      {(video.title || video.desc) && (
-        <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 text-center text-white">
-          <h3 className="text-xl sm:text-2xl font-semibold">{video.title}</h3>
-          <p className="text-white/70 text-sm sm:text-base mt-1">{video.desc}</p>
+      {/* Top Controls */}
+      {index === active && (
+        <div className="absolute top-3 right-3 flex gap-3">
+          <ControlButton onClick={togglePlay}>
+            {isPlaying ? <Pause size={20} /> : <Play size={20} />}
+          </ControlButton>
+          <ControlButton onClick={toggleMute}>
+            {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+          </ControlButton>
         </div>
       )}
-    </div>
+
+      {/* Title */}
+      {video.title && index === active && (
+        <div className="absolute bottom-0 left-0 right-0 p-4 text-center bg-black/40 backdrop-blur-md">
+          <h3 className="text-white text-lg font-semibold">{video.title}</h3>
+        </div>
+      )}
+    </motion.div>
   );
 }
 
-// 🔥 Stylish control button component
-function ControlButton({ onClick, children }) {
+// -----------------------------------------------
+// Reusable button
+// -----------------------------------------------
+
+function ControlButton({ children, onClick }) {
   return (
     <button
-      onClick={onClick}
-      className="bg-white/15 hover:bg-white/25 active:scale-95
-      backdrop-blur-md p-3 rounded-full border border-white/20
-      text-white transition flex items-center justify-center"
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick();
+      }}
+      className="bg-white/15 hover:bg-white/30 p-3 rounded-full border border-white/20 text-white 
+      backdrop-blur-md transition active:scale-90"
     >
       {children}
     </button>

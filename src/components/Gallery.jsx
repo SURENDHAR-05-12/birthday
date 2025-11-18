@@ -31,6 +31,9 @@ const GALLERY = [
   "./images/img28.jpeg",
   "./images/img29.jpeg",
   "./images/img30.jpeg",
+  "./images/img31.jpeg",
+  "./images/img32.jpeg",
+  "./images/img33.jpeg",
 ];
 
 export default function Gallery() {
