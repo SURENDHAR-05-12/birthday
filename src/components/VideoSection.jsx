@@ -75,8 +75,8 @@ export default function VideoSection() {
 ------------------------------------------------------*/
 function VideoCard({ video, index, active, setActive }) {
   const ref = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(index === 0 ? false : false);
+  const [isMuted, setIsMuted] = useState(index === 0 ? false : false);
 
   const togglePlay = () => {
     if (!ref.current) return;
@@ -109,6 +109,25 @@ function VideoCard({ video, index, active, setActive }) {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (index === active) {
+      // first video stays paused
+      if (index === 0) {
+        ref.current.pause();
+        setIsPlaying(false);
+      } else {
+        ref.current.play().catch(() => { });
+        setIsPlaying(true);
+      }
+      ref.current.muted = false; // always sound ON
+    } else {
+      ref.current.pause();
+      setIsPlaying(false);
+    }
+  }, [active]);
+
+
+
   /* ⭐ Auto-pause when card is not active */
   useEffect(() => {
     if (index !== active && ref.current) {
@@ -137,6 +156,7 @@ function VideoCard({ video, index, active, setActive }) {
         ref={ref}
         src={video.src}
         muted={isMuted}
+        autoPlay={true}
         loop
         playsInline
         className="w-[300px] sm:w-[360px] md:w-[400px] h-[420px] object-cover"
