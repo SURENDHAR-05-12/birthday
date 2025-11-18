@@ -26,16 +26,14 @@ export default function VideoSection() {
       id="videos"
       className="relative py-20 flex flex-col items-center justify-center overflow-hidden"
     >
-      {/* Heading */}
       <h2 className="text-3xl sm:text-4xl font-bold text-transparent bg-clip-text 
         bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 mb-14 text-center">
         தோழிகள்
       </h2>
 
-      {/* Carousel wrapper */}
+      {/* Carousel Wrapper */}
       <div className="relative w-full max-w-6xl h-[420px] flex items-center justify-center">
-        
-        {/* Cards */}
+
         {VIDEOS.map((video, i) => (
           <VideoCard
             key={i}
@@ -50,7 +48,7 @@ export default function VideoSection() {
         {active > 0 && (
           <button
             onClick={prev}
-            className="absolute left-0 sm:left-1 p-2 rounded-full bg-white/15 border border-white/20 
+            className="absolute left-1 sm:left-1 p-2 rounded-full bg-white/15 border border-white/20
             text-white backdrop-blur-xl hover:bg-white/25 transition"
           >
             <ChevronLeft size={28} />
@@ -61,7 +59,7 @@ export default function VideoSection() {
         {active < VIDEOS.length - 1 && (
           <button
             onClick={next}
-            className="absolute right-0 sm:right-1 p-2 rounded-full bg-white/15 border border-white/20 
+            className="absolute right-1 sm:right-1 p-2 rounded-full bg-white/15 border border-white/20
             text-white backdrop-blur-xl hover:bg-white/25 transition"
           >
             <ChevronRight size={28} />
@@ -72,10 +70,9 @@ export default function VideoSection() {
   );
 }
 
-// -----------------------------------------------
-// 🔥 Single Carousel Card
-// -----------------------------------------------
-
+/* ----------------------------------------------------
+      🔥 Single 3D Carousel Card with Auto-Pause Fix
+------------------------------------------------------*/
 function VideoCard({ video, index, active, setActive }) {
   const ref = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -92,6 +89,33 @@ function VideoCard({ video, index, active, setActive }) {
     ref.current.muted = !ref.current.muted;
     setIsMuted(!isMuted);
   };
+
+  /* ⭐ Auto-pause video when not visible on screen */
+  useEffect(() => {
+    const videoEl = ref.current;
+    if (!videoEl) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) {
+          videoEl.pause();
+          setIsPlaying(false);
+        }
+      },
+      { threshold: 0.6 }
+    );
+
+    observer.observe(videoEl);
+    return () => observer.disconnect();
+  }, []);
+
+  /* ⭐ Auto-pause when card is not active */
+  useEffect(() => {
+    if (index !== active && ref.current) {
+      ref.current.pause();
+      setIsPlaying(false);
+    }
+  }, [active]);
 
   return (
     <motion.div
@@ -117,7 +141,7 @@ function VideoCard({ video, index, active, setActive }) {
         playsInline
         className="w-[300px] sm:w-[360px] md:w-[400px] h-[420px] object-cover"
         onClick={(e) => {
-          e.stopPropagation(); 
+          e.stopPropagation();
           togglePlay();
         }}
       />
@@ -144,10 +168,7 @@ function VideoCard({ video, index, active, setActive }) {
   );
 }
 
-// -----------------------------------------------
-// Reusable button
-// -----------------------------------------------
-
+/* Reusable control buttons */
 function ControlButton({ children, onClick }) {
   return (
     <button
