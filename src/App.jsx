@@ -99,8 +99,7 @@ export default function App() {
         {/* Family Wishes */}
         <Section
           id="wishes"
-          title="With Love, From Parents"
-          subtitle="Tap to play video"
+          title={"வாழ்த்துக்கள்"}
         >
           <Wishes />
         </Section>
@@ -109,7 +108,7 @@ export default function App() {
         <Section
           id="surprise"
           title="One Last Surprise"
-          subtitle="Click the button when you're ready!"
+          subtitle="ஏதோ என்னால் முடிந்தது 😁"
         >
           <div className="flex flex-col items-center text-center">
             <motion.button

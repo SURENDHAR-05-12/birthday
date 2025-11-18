@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const VIDEOS = [
   { src: "./videos/vid1.mp4", title: "" },
   { src: "./videos/vid2.mp4", title: "" },
-  { src: "./videos/vid3.mp4", title: "School Days" },
+  { src: "./videos/vid3.mp4", title: "" },
   { src: "./videos/vid4.mp4", title: "" },
   { src: "./videos/vid5.mp4", title: "" },
   { src: "./videos/vid6.mp4", title: "" },
